@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> <%= title%>  </title>
+  <link rel="stylesheet" href="/stylesheets/shop.css">
+</head>
+<body>
+  <%= xml %>
+  <hr>
+  <%- xml %>
+<hr>
+  <% if (flag) { %>
+    <h3> 加载中... </h3>
+  <% } %>
+<hr>
+  <ul>
+    <% result.forEach(function (item) {  %>
+      <li>
+        <h4> <%= item.positionName %> </h4>
+        <p> 薪资：<%= item.salary %>  </p>
+      </li>
+    <% }) %>
+  </ul>
+
+
+  <hr>
+</body>
+</html>
