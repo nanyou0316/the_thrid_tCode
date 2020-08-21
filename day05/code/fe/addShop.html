@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="form-group">
+        <label for=""> 商品id </label>
+        <input type="text" name="" id="id" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for=""> 商品名称 </label>
+        <input type="text" name="" id="name" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for=""> 商品价格 </label>
+        <input type="text" name="" id="price" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for=""> 商品库存量 </label>
+        <input type="text" name="" id="num" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for=""> 商品图片 </label>
+        <input type="file" name="" id="pic" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for=""> 商品描述 </label>
+        <input type="text" name="" id="desc" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for=""> 商品标题 </label>
+        <input type="text" name="" id="title" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" id="add_shop" class="btn btn-primary"> 添加商品 </button>
+    </div>
+  </div>
+</body>
+<script>
+  let pic = ''
+  $('#pic').on('change', function (e) {
+    //文件请求
+    const p = new FormData()
+    p.append('file', e.target.files[0])
+    $.ajax({
+      url: 'https://elm.cangdu.org/v1/addimg/shop',
+      method: 'post',
+      data: p,
+      processData: false,//必须
+      contentType: false,//必须
+      success(res) {
+        console.log('res', res)
+        pic = 'https://elm.cangdu.org/img/' + res.image_path
+      }
+    })
+  })
+  $('#add_shop').on('click', function () {
+    console.log('pic', pic)
+    $.ajax({
+      url: 'http://localhost:3000/api/shop',
+      method: 'post',
+      data: {
+        shopId: $('#id').val(),
+        shopPrice: $('#price').val(),
+        shopName: $('#name').val(),
+        shopNum: $('#num').val(),
+        shopPic: pic,
+        shopDesc: $('#desc').val(),
+        shopTitle: $('#title').val(),
+      },
+      success(res) {
+        console.log('res', res)
+        if (res.status == 1) {
+          location.href = './shopList.html'
+        }
+      }
+    })
+  })
+</script>
+
+</html>
