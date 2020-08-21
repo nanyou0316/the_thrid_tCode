@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    .container {
+      padding: 20px;
+      margin: 20px;
+      width: 300px;
+    }
+
+    #login {
+      width: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="form-group">
+        <label for="">用户名</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label for="">密码</label>
+        <input type="password" name="username" id="pass" class="form-control" placeholder="" aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" name="" id="login" class="btn btn-primary  btn-block"> 登录 </button>
+    </div>
+  </div>
+
+
+  <script>
+    $('#login').on('click', function () {
+      $.ajax({
+        url: 'http://localhost:3000/api/user/login', // 第一我缺失
+        method: 'POST',
+        data: {
+          username: $('#username').val(),
+          pass: $('#pass').val()
+        },
+        success(res) {
+          console.log('res', res)
+        }
+      })
+    })
+  </script>
+
+</html>

@@ -1,0 +1,108 @@
+define({ "api": [
+  {
+    "type": "post",
+    "url": "/api/user/login",
+    "title": "用户登录",
+    "name": "Login",
+    "group": "Home",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "username",
+            "description": "<p>用户名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>密码</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"firstname\": \"John\",\n  \"lastname\": \"Doe\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"UserNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/user/login"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Home"
+  },
+  {
+    "type": "post",
+    "url": "/api/user/login",
+    "title": "用户登录",
+    "name": "Login",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "username",
+            "description": "<p>用户名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>密码</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"firstname\": \"John\",\n  \"lastname\": \"Doe\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"UserNotFound\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/api/user/login"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/login.js",
+    "groupTitle": "User"
+  }
+] });
