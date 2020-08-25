@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    .mask {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: rgba(0, 0, 0, .5);
+      display: none;
+    }
+
+    .mask_content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 30px;
+      bottom: 30px;
+      margin: auto;
+      width: 700px;
+      height: 480px;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+    }
+
+    .mask_content .row .form-group {
+      display: flex;
+      width: 100%;
+    }
+
+    .mask_content .row .form-group label {
+      display: block;
+      width: 150px;
+    }
+  </style>
 </head>
+
 <body>
   <div class="container">
     <div class="row">
@@ -23,25 +62,97 @@
             <th>商品库存量</th>
             <th>操作</th>
           </tr>
-          </thead>
-          <tbody>
-         
-          </tbody>
+        </thead>
+        <tbody>
+
+        </tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="mask" data-flag="mask">
+    <div class="mask_content">
+      <div class="container">
+        <div class="row">
+          <div class="form-group">
+            <label for=""> 商品id </label>
+            <input type="text" name="" id="id" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for=""> 商品名称 </label>
+            <input type="text" name="" id="name" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for=""> 商品价格 </label>
+            <input type="text" name="" id="price" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for=""> 商品库存量 </label>
+            <input type="text" name="" id="num" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for=""> 商品图片 </label>
+            <input type="file" name="" id="pic" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for=""> 商品描述 </label>
+            <input type="text" name="" id="desc" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for=""> 商品标题 </label>
+            <input type="text" name="" id="title" class="form-control" placeholder="" aria-describedby="helpId">
+          </div>
+        </div>
+        <div class="row">
+          <button type="button" id="change_shop" class="btn btn-lg btn-primary"> 修改商品 </button>
+        </div>
+      </div>
     </div>
   </div>
 
 
 </body>
 <script>
+
+  let update_id = ''
+  let pic = ''
+  let image = ''
+  //发送图片请求
+  $('#pic').on('change', function (e) {
+    const p = new FormData()
+    p.append('file', e.target.files[0])
+    $.ajax({
+      url: 'https://elm.cangdu.org/v1/addimg/shop',
+      method: 'post',
+      data: p,
+      processData: false,//必须
+      contentType: false,//必须
+      success(res) {
+        console.log('res', res)
+        pic = 'https://elm.cangdu.org/img/' + res.image_path
+      }
+    })
+  })
+  //渲染页面
   $.ajax({
     url: 'http://localhost:3000/api/shop',
-    success (res) {
-      console.log('res',res)
+    success(res) {
       let str = ''
-      $.each(res.data,function (index,ele) {
+      $.each(res.data, function (index, ele) {
         str += `
-          <tr>
+          <tr >
             <td>
              <img src="${ele.shopPic}" width="80" height="80"/>
              </td>
@@ -55,9 +166,8 @@
              <td> ${ele.shopDesc} </td>
              <td> ${ele.shopNum} </td>
              <td>
-
-              <button type="button" class="btn btn-primary"> 修改 </button>
-              <button type="button" class="btn btn-danger"> 删除 </button>
+              <button  type="button" class="btn btn-primary" data-ele='${JSON.stringify(ele)}'>修改</button>
+              <button data-id="${ele._id}" type="button" class="btn btn-danger">删除</button>
              </td>
            </tr>
         `
@@ -65,5 +175,117 @@
       $('tbody').html(str)
     }
   })
+
+  // 点击遮罩让它消失
+  $('.mask').on('click', function (e) {
+    closeMask(e)
+  })
+  function closeMask(e) {
+    if (e.target.dataset.flag == 'mask') {
+      $('.mask').css('display', 'none')
+    }
+  }
+
+  function giveVal(obj) {
+    $('#id').val(obj.shopId)
+    $('#name').val(obj.shopName)
+    $('#desc').val(obj.shopDesc)
+    $('#price').val(obj.shopPrice)
+    $('#title').val(obj.shopTitle)
+    $('#num').val(obj.shopNum)
+  }
+
+
+  //遮罩层里面的修改操作
+  $('#change_shop').on('click', function () {
+
+    $.ajax({
+      url: 'http://localhost:3000/api/shop',
+      method: 'put',
+      data: {
+        _id: update_id,
+        shopId: $('#id').val(),
+        shopPrice: $('#price').val(),
+        shopName: $('#name').val(),
+        shopNum: $('#num').val(),
+        shopPic: pic,
+        shopDesc: $('#desc').val(),
+        shopTitle: $('#title').val(),
+      },
+      success(res) {
+        // console.log('res',res)
+        if (res.status == 1) {
+          $('.mask').css('display', 'none')
+          let str = ''
+          $.each(res.data.data, function (index, ele) {
+            str += `
+          <tr >
+            <td>
+             <img src="${ele.shopPic}" width="80" height="80"/>
+             </td>
+             <td> ${ele._id} </td>
+             <td> ${ele.shopId} </td>
+             <td>
+                ${ele.shopName}
+              </td>
+             <td> ${ele.shopTitle} </td>
+             <td> ${ele.shopPrice} </td>
+             <td> ${ele.shopDesc} </td>
+             <td> ${ele.shopNum} </td>
+             <td>
+              <button  type="button" class="btn btn-primary" data-ele='${JSON.stringify(ele)}'>修改</button>
+              <button data-id="${ele._id}" type="button" class="btn btn-danger">删除</button>
+             </td>
+           </tr>
+        `
+          })
+          $('tbody').html(str)
+        }
+      }
+    })
+  })
+
+
+
+  // 修改和删除功能
+  $('table').on('click', function (e) {
+    //修改功能
+    if (e.target.innerHTML == '修改') {
+
+      $('.mask').css('display', 'block')
+      //  console.log('ele',e.target.dataset.ele)
+      const data = JSON.parse(e.target.dataset.ele)
+      update_id = data._id
+      // console.log(data.shopPic);
+      // image = data.shopPic;
+      giveVal(data)
+    }
+    //删除功能
+    if (e.target.innerHTML == '删除') {
+      // alert('删除')
+      // console.log(e.target.dataset.id)
+      $.ajax({
+        url: 'http://localhost:3000/api/shop',
+        method: 'delete',
+        data: {
+          _id: e.target.dataset.id
+        },
+        success(res) {
+          // console.log('res',res)
+          if (res.status == 1) {
+            if (window.confirm('你确认要删除吗?')) {
+              e.target.parentNode.parentNode.remove()
+            }
+
+          } else {
+            alert(res.msg)
+          }
+        }
+      })
+    }
+
+
+  })
 </script>
+
 </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.17.0/js/md5.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="form-group">
+        <label for="">用户名/邮箱:</label>
+        <input type="text"
+          class="form-control" name="" id="name" aria-describedby="helpId" placeholder="">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="">密码:</label>
+        <input type="text"
+          class="form-control" name="" id="pass" aria-describedby="helpId" placeholder="">
+      </div>
+    </div>
+  
+    <div class="row">
+      <button type="button" id="login" class="btn btn-primary"> 登录 </button>
+    </div>
+  </div>
+</body>
+<script src="./cookie.js"></script>
+<script>
+  // 进入这个页面时
+  // 判断token合法性就可以
+  $.ajax({
+    url: 'http://localhost:3000/api/check-token',
+    headers: {
+      token: cookie.get('token')
+    },
+    success (res) {
+      // console.log('token_check',res)
+      if (res.status == 1) {
+        location.href = './index.html'
+      }
+    }
+  })
+  // 登录操作
+  $('#login').on('click',function () {
+    $.ajax({
+      url: 'http://localhost:3000/api/user/login',
+      method: 'POST',
+      headers: {
+        token: cookie.get('token'),//从cookie中取来
+      },
+      data: {
+        loginName: $('#name').val(),
+        pass: md5($('#pass').val()),
+      },
+      success (res) {
+        // console.log('res',res)
+        if (res.status == 1) {
+          //将username,root,token存入cookie
+          cookie.set('username',$('#name').val(),7)
+          cookie.set('root',res.root,7)
+          cookie.set('token',res.token,7)
+          cookie.set('pic',res.pic,7)
+          location.href = './index.html'
+        }
+      }
+    })
+  })
+
+</script>
+</html>

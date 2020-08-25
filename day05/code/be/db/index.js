@@ -1,8 +1,7 @@
 //1. 引入需要的第三方库
 const mongoose = require('mongoose')
-const { query } = require('express')
 
-//2. 连接数据库    连接2005数据库
+//2. 连接数据库
 mongoose.connect('mongodb://localhost:27017/2005', {
   useNewUrlParser: true
 }, error => {
@@ -22,7 +21,7 @@ const shopSchema = new mongoose.Schema({
 })
 
 //4. 创建模型
-// mongoose.model(集合名称【复数】，骨架)   连接shops集合
+// mongoose.model(集合名称【复数】，骨架)
 const shopModel = mongoose.model('shops', shopSchema)
 
 
@@ -30,7 +29,7 @@ module.exports = {
   shop: {
     add(data) {
       return new Promise(async (resolve, reject) => {
-        const docs = await this.query()//返回查询成功或者失败的结果
+        const docs = await this.query()
         const f = docs.data.some(item => item.shopId == data.shopId)
         if (f) {
           // 找到了
@@ -49,8 +48,45 @@ module.exports = {
         }
       })
     },
-    del() { },
-    update() { },
+    del(_id) {
+      return new Promise((resolve, reject) => {
+        shopModel.findById(_id, (error, doc) => {
+          // console.log('doc',doc) 就是_id的这条数据
+          if (error) reject({
+            status: 0,
+            msg: '删除失败'
+          })
+          doc.remove()
+          resolve({
+            status: 1,
+            msg: '删除成功'
+          })
+        })
+      })
+    },
+    update(data) {
+      console.log('data', data)
+      const { _id } = data
+      return new Promise((resolve, reject) => {
+        shopModel.findById(_id, (error, doc) => {
+          if (error) reject({
+            status: 0,
+            msg: '修改失败了'
+          })
+          // console.log('doc',doc)
+          for (let key in data) {
+            doc[key] = data[key]
+          }
+          doc.save(async (err) => {
+            resolve({
+              status: 1,
+              msg: '修改成功',
+              data: await this.query()
+            })
+          })
+        })
+      })
+    },
     query() {
       return new Promise((resolve, reject) => {
         shopModel.find({}, (error, docs) => {
@@ -71,4 +107,3 @@ module.exports = {
     }
   }
 }
-

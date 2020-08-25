@@ -62,7 +62,6 @@
 <script>
   let pic = ''
   $('#pic').on('change', function (e) {
-    //文件请求
     const p = new FormData()
     p.append('file', e.target.files[0])
     $.ajax({

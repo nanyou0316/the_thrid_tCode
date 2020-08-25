@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../db')
+const db = require('../db/index')
 //! 旧做法
 // router.get('/shop/add',(req,res,next) => {})
 // router.get('/shop/del',(req,res,next) => {})
@@ -13,26 +13,27 @@ const db = require('../db')
 router
   .route('/shop')
   .post(async (req, res, next) => {
-    // post请求 后端得到前端的请求数据用req.body
-    // console.log(req.body);
-    //得到与数据库匹配的结果
     const { status, msg } = await db.shop.add(req.body)
     res.json({
       status,
       msg
     })
   })
-
-  .delete((req, res, next) => {
+  .delete(async (req, res, next) => {
+    // console.log('req',req.body)
+    const { _id } = req.body
+    const { status, msg } = await db.shop.del(_id)
     res.json({
-      status: 1,
-      msg: '请求成功'
+      status,
+      msg
     })
   })
-  .put((req, res, next) => {
+  .put(async (req, res, next) => {
+    const { status, msg, data } = await db.shop.update(req.body)
     res.json({
-      status: 1,
-      msg: '请求成功'
+      status,
+      msg,
+      data
     })
   })
   .get(async (req, res, next) => {

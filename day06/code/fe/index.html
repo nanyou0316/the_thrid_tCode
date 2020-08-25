@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="username"></div>
+  <img src="" alt="">
+</body>
+<script src="./cookie.js"></script>
+<script>
+  const username = document.querySelector('.username')
+  const img = document.querySelector('img')
+  username.innerHTML = cookie.get('username')
+  img.src = cookie.get('pic')
+</script>
+</html>
