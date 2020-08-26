@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <form
+      class="upForm"
+      action="http://localhost:3000/api/upload"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <table>
+        <tr>
+          <td>用户名：</td>
+          <td><input type="text" name="uname" /></td>
+        </tr>
+        <tr>
+          <td>密码：</td>
+          <td><input type="password" name="uname" /></td>
+        </tr>
+        <tr>
+          <td>性别：</td>
+          <td>
+            <input type="radio" name="sex" value="0" checked />男
+            <input type="radio" name="sex" value="0" />女
+          </td>
+        </tr>
+        <tr>
+          <td>证件：</td>
+          <td><input type="file" name="upfile" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="button" value="提交" /></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+  <script src="./js/jquery-form.js"></script>
+  <script>
+
+    $(function () {
+      $('form').on('submit',function (e) {
+        e.preventDefault()
+      })
+      $(".upForm input[type='button']").on("click", function (e) {
+        var options = {
+          beforeSubmit: checkForm,
+          success: resultForm,
+          resetForm: true,
+          dataType: "json",
+        };
+        $(".upForm").ajaxSubmit(options);
+      });
+
+      function checkForm(formData, form, options) {
+        //表单提交前处理
+      }
+
+      function resultForm(data, status) {
+        //表单完成
+        console.log(data);
+      }
+    });
+  </script>
+</html>

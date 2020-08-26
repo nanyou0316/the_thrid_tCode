@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <form id="uploadForm">
+      <p>指定文件名： <input type="text" name="filename" value="" /></p>
+      <p>上传文件： <input type="file" name="logo" /></p>
+      <input type="button" value="上传" onclick="doUpload()" />
+    </form>
+  </body>
+  <script>
+    function doUpload() {
+      $.ajax({
+        url: "http://localhost:3000/api/upload",
+        type: "POST",
+        cache: false, //不必须
+        data: new FormData($("#uploadForm")[0]),
+        processData: false, //必须
+        contentType: false, //必须
+        success: function (data) {
+          alert("data", JSON.stringify(data));
+        },
+      });
+    }
+  </script>
+</html>
