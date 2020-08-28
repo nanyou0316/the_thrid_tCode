@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text"  v-model="val" name="" id="">
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  /* 
+    * 知识点
+      * 1. v-model默认绑定的是value属性，所以v-model只能应用于表单元素
+    * 经验
+      * 2. 以后看到表单元素就给 v-model   
+  */
+  new Vue({
+    el: '#app',
+    data: {
+      val: 'Hello 姜帅'
+    }
+  })
+</script>
+</html>

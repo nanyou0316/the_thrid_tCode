@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+      <h3> 列表渲染 - 数值 </h3>
+      <ul>
+        <li v-for = "item in num">
+          {{ item }}
+        </li>
+      </ul>
+      <h3> 列表渲染 - 字符 </h3>
+      <ul>
+        <li v-for = "item of str">
+          {{ item }}
+        </li>
+      </ul>
+      <h3> 列表渲染 - 对象 </h3>
+      <ul>
+        <li v-for = "(val,key,index) in obj">
+          {{ index }} -- {{ key }} -- {{ val }}
+        </li>
+      </ul>
+      <h3> 列表渲染 - 嵌套 </h3>
+      <ul>
+        <li v-for = "item in lists">
+          <h3> {{ item.product }} </h3>
+          <div v-for = "ele in item.levels">
+            {{ ele }}
+          </div>
+        </li>
+      </ul>
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      num: 10,
+      str: 'I Love program',
+      obj: {
+        name: '姜亮',
+        age: 30,
+        sex: 'man',
+        root: '小白'
+      },
+      lists: [
+        {
+          id: 1,
+          product: '苹果',
+          levels: ['iphone','ipad','Mac']
+        },
+        {
+          id: 2,
+          product: '华为',
+          levels: ['华为手机','华为 ipad','华为笔记本']
+        }
+      ]
+    }
+  })
+</script>
+</html>

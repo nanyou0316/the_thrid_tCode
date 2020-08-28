@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <style>
+      .btn{
+        width: 100px;
+        height: 50px;
+        border: none;
+        background: none;
+      }
+      .btn.btn-primary{
+        background: blue;
+        color: white;
+      }
+      .btn.btn-danger{
+        background: red;
+        color: white;
+      }
+      .btn.btn-radius{
+        border-radius: 15px;
+      }
+      .btn.btn-bg-no{
+        background: transparent;
+      }
+      .btn.btn-bg-no.btn-border.btn-primary{
+        border: 1px solid blue;
+      }
+      .btn.btn-bg-no.btn-border.btn-danger{
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn btn-primary btn-radius "></button>
+    <button class="btn btn-danger btn-radius btn-bg-no btn-border"></button>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .big{
+      width: 300px;
+      height: 300px;
+      background: red;
+    }
+    .middle{
+      width: 150px;
+      height: 150px;
+      background: blue;
+    }
+    .small{
+      width: 50px;
+      height: 50px;
+      background: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+      <div class="big" @click="bigFn(10,$event)">
+        <div class="middle" @click="middleFn">
+          <div class="small" @click="smallFn"></div>
+        </div>
+      </div>
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  /* 
+    * 特殊情况下
+      * 如果一个函数即需要事件对象，又需要其他参数，必须使用$event和e的位置对应
+  */
+  new Vue({
+    el: '#app',
+    methods: {
+      bigFn ( n,e ) {
+        console.log('e',e)
+        console.log('n',n)
+        e.stopPropagation()
+        alert('big')
+      },
+      middleFn ( e ) {
+        e.stopPropagation()
+        alert('middle')
+      },
+      smallFn ( e ) {
+        e.stopPropagation()
+        alert('small')
+      }
+    }
+  })
+</script>
+</html>

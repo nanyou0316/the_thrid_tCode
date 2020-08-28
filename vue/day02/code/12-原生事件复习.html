@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body onload="loading()">
+  <div class="box"></div>
+</body>
+<script>
+  /* 
+    * 1. 什么是事件？
+      * 由用户或者dom发起的用户交互行为
+    * 2. 事件由几个部分构成
+      *  事件源
+      *  事件类型
+      *  事件处理程序 
+        * 事件对象
+        * 参数  
+    * 3. 事件的实现方式有哪些？
+      * DOM 0级事件
+      * DOM 2级事件 事件监听
+    * 4. 事件的绑定形式有哪些？
+      *  box.onclick = functioin () {}  
+  */
+  function loading () {
+    document.body.innerHTML  = 'loading'
+  }
+</script>
+</html>

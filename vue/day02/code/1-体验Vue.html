@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- vue作用范围 -->
+    <!-- Vue中如何来书写数据 -->
+    <p> {{ msg }} </p>
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  // 当我们引入vue.js之后，会得到一个全局变量Vue
+  // 这个全局变量Vue是一个构造函数
+  // options 称之为 选项，也就是一个对象
+  // options当中可以书写的选项去哪里找的： 官网/学习/api中带有选项两个字眼的
+  // new Vue(options)
+  // Root我们称之为 根实例 组件
+  // 我们发现数据改变，视图更新，那么我们将这种现象称之为 数据响应
+  // 也意味着我们以后是通过数据来控制视图的
+  new Vue({
+    // el不能选择body
+    el: '#app',//el就是一个已有的dom元素，用于规定vue的作用范围，el的值是一个dom选择器
+    data: {
+      msg: 'Hello Vue.js'
+    }
+  })
+</script>
+</html>

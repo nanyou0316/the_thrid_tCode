@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <ul></ul>
+</body>
+<script>
+  $.ajax({
+    url: 'http://59.110.226.77:3000/api/list/hot',
+    data: {
+      cid: 17
+    },
+    success (res) {
+      // console.log('res',res)
+      let result = JSON.parse(res)
+      let str = ''
+      $.each(result.data.content,function (index,item) {
+        str+= `
+          <li> ${item.d_title} </li>
+        `
+      })
+      $('ul').html(str)
+    }
+  })
+</script>
+</html>

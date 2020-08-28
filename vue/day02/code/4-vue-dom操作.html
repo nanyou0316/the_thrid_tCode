@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box">
+    <p> {{ msg }} </p>
+    <p v-html="msg"></p>
+    <p v-text="msg"></p>
+    <h3> v-html vs v-text </h3>
+    <div v-html = "xml"></div>
+    <div v-text = "xml"></div>
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#box',
+    data: {
+      msg: '千锋教育',
+      xml: '<h5> xml类型数据渲染 </h5>'
+    }
+  })
+</script>
+</html>

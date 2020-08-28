@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 切记： app 这个div 是真实dom  -->
+  <!-- 切记： app这个div里面的东西都是模板，是假的，不是真实dom  -->
+  <!-- mustache语法/双大括号语法/插值表达式 -->
+  <!-- 
+      mustache语法/双大括号语法/插值表达式
+      这个语法中我们可以书写js语法
+  -->
+  <div id="app">
+    <p> {{ msg }} </p>
+    <p> {{ this.msg }} </p>
+    <p> {{ msg.split('').reverse().join('') }} </p>
+    <p> {{ flag ? '真':'假' }} </p>
+    <p> {{ flag && '真'||'假' }} </p> 
+    <!-- 切记: bom身上的语法不可以用   Dom身上的也不行 -->
+    <!-- 切记: 流程控制语法不能用 -->
+    <!-- <p> {{ if (flag) { console.log(1) } }} </p> -->
+    <!-- <p> {{ this.alert(1) }} </p> -->
+  </div>
+  {{ msg }}
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  // 上面的this就是实例vm
+  const vm = new Vue({
+    el: '#app',// 挂载
+    data: {
+      msg: 'Hello Vue.js',
+      flag: true 
+    }
+  })
+  console.log(vm)
+</script>
+</html>

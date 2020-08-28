@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    需求：当我们键盘回车时，弹出input的value值 
+    <br>
+    <input type="text" @keydown="fn">
+    <hr>
+    使用键盘修饰符之后的效果 <br>
+    <input type="text" @keydown.13 = "handler" v-model = "val">
+    <input type="text" @keydown.enter = "handler" v-model = "val">
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      val:''
+    },
+    methods: {
+      fn (e) {
+        if (e.keyCode == 13 ) {
+          alert(e.target.value)
+        }
+      },
+      handler () {
+        alert(this.val)
+      }
+    }
+  })
+</script>
+</html>

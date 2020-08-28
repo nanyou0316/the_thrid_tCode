@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box">
+    <h3> 单路分支 </h3>
+      <p v-if = "flag"> 真 </p>
+    <h3> 双路分支 </h3>
+        <p v-if = "flag"> 真 </p>
+        <p v-else> 假 </p>
+    <h3> 多路分支 </h3>
+      <p v-if="grads < 60"> 你还需要继续努力 </p>
+      <p v-else-if="grads >= 60 && grads < 80"> 继续努力，做的很好了 </p>
+      <p v-else="grads >= 80"> 很优秀，继续保持 </p>
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#box',
+    data: {
+      flag: true,
+      grads: 80
+    }
+  })
+</script>
+</html>

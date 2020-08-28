@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .size{
+      width: 100px;
+      height: 100px;
+    }
+    .red{
+      background: red;
+    }
+    .blue{
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h3> 单向数据绑定可以用于绑定类名 </h3>
+      <p class="size red"></p>
+      <!-- 需求：我要求通过一个数据的改变可以改变p标签的背景色 -->
+      <!-- 类名绑定 - 写法一 - 对象 -->
+      <p v-bind:class="{size: true,red: flag,blue: !flag }"></p>
+      <!-- 类名绑定 - 写法一 - 数组 -->
+      <p v-bind:class="['size',flag?'red':'blue']"></p>
+      <!-- 如果我使用了类名绑定，会影响原有的class吗 -->
+      <p class="btn" v-bind:class="['size','blue']"></p>
+
+    <h3> 单向数据绑定可以用于样式绑定 </h3>
+      <p v-bind:style="{width: size,height: '100px',background: 'yellow'}"></p>
+      <p v-bind:style="[{width: '100px',height: '100px'},{background: 'purple'}]"></p>
+    <h3> 单向数据绑定 </h3>
+    <img v-bind:src="pic" alt="">
+    <h3> 单向数据绑定用于表单 </h3>
+    <input type="text" name="" id="" v-bind:value="val"> 
+
+    <h3> 单向数据绑定简写 </h3>
+      <img :src="pic" alt="">
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      flag: true,
+      val: 'Hello vue.js',
+      size: '100px',
+      pic: 'https://ftp.bmp.ovh/imgs/2019/11/8dea885bcee7fb02.png'
+    }
+  })
+</script>
+</html>

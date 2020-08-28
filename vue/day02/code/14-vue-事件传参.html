@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    需求： 有一个列表，我点击里面的每一项时，对应删除这一项
+      <ul>
+        <li v-for = "(item,index) in list">
+          {{ item  }} 
+          <button @click="remove(index)"> 点击 </button>
+        </li>
+      </ul>
+  </div>
+</body>
+<script src="../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      list: [1,2,3,4]
+    },
+    methods: {
+      remove (index) {
+        // alert('事件触发')
+        // 数组删除  splice(index,1)
+        // console.log(this)
+        this.list.splice(index,1)
+      }
+    }
+  })
+</script>
+</html>
