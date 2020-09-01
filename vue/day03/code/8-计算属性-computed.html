@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    需求1： 将msg反向输出
+    <hr>
+    <p> {{msg.split('').reverse().join('')}} </p>
+    放在methods中
+    <hr>
+    {{ newMsg() }} <br>
+    放在computed
+    <hr>
+    {{ reverseMsg }}
+
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  /* 
+    * 计算属性
+      * 计算属性是对已有数据的一个重新计算
+    * 理由
+      * 1. vue是一个MVVM  M数据V视图VM逻辑
+      * 2. 我们选择将处理逻辑放在选项里面
+        * methods  
+        * computed 
+    * methods vs computed 
+      * 1. 是对已有数据的处理
+      * 2. methods一般是用来作为事件处理程序的  
+            
+  */
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      msg: 'I Love program'
+    },
+    methods: {
+      newMsg() {
+        return this.msg.split('').reverse().join('')
+      }
+    },
+    computed: {
+      reverseMsg() {
+        return this.msg.split('').reverse().join('')
+      }
+    }
+
+
+  })
+</script>
+
+</html>

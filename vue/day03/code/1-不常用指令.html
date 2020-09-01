@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    不常用指令1： v-once 表示只渲染一次 <br>
+    <p v-cloak> {{ num }} </p>
+    <p v-once v-cloak> {{ num }} </p>
+    <hr>
+    不常用指令2： v-pre  表示显示源代码 <br>
+    <p v-pre>源代码 {{ msg }} </p>
+    <p v-cloak>代码执行结果 {{ msg }} </p>
+    <hr>
+    不常用指令3： v-cloak  用于解决代码块闪现问题 <br>
+    <p v-cloak> {{ msg }} </p>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      num: 100,
+      msg: 'Hello Vue.js 今日周五'
+    }
+  })
+</script>
+</html>

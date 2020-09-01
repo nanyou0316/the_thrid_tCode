@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    需求：输入姓和名，输出全名，输入全名，自动填写姓和名
+    <hr>
+    <div class="row">姓<input type="text" v-model="firstName"></div>
+    <div class="row">名<input type="text" v-model="lastName"></div>
+    <div class="row">全名<input type="text" v-model="fullName"></div>
+    <hr>
+    需求: 体重指数 <br>
+    <div class="row">身高<input type="text" v-model="pHeight"></div>
+    <div class="row">体重<input type="text" v-model="pWeight"></div>
+    <p> {{BMI}} </p>
+    <p v-if="BMI>0&&BMI<19"> 过轻 </p>
+    <p v-else-if="BMI>=19&&BMI<25"> 正常 </p>
+    <p v-else-if="BMI>=25&&BMI<29"> 过重 </p>
+    <p v-else> 肥胖 </p>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      firstName: '',
+      lastName: '',
+      pHeight: '',
+      pWeight: ''
+    },
+    computed: {
+      BMI() {
+        return this.pWeight / Math.pow(this.pHeight, 2)
+      },
+      fullName: {
+        get() {
+          return this.firstName + this.lastName
+        },
+        set(val) {
+          console.log('val', val)
+          this.firstName = val.slice(0, 1)
+          this.lastName = val.slice(1)
+        }
+      }
+    }
+
+  })
+</script>
+
+</html>

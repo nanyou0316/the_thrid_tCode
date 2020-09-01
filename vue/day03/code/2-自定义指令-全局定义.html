@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    需求1: 当我打开页面时，input自动获取焦点
+    <hr>
+    <input type="text" v-focus.a="5>3">
+    <input type="text">
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  // 自定义指令
+  // Vue.directive(指令名称,指令的hooks[钩子函数])
+  Vue.directive('focus', {
+    /* 
+     * bind 表示指令绑定到元素时自动触发
+     * inserted 表示指令绑定的元素出入到页面时触发
+     */
+    // bind (el,binding,newNode,oldNode) {
+    //   console.log('el',el)
+    //   console.log('binding',binding)
+    //   console.log('oldNode',oldNode)
+    //   console.log('newNode',newNode)
+    //   console.log('bind执行了')
+    // },
+    inserted(el, binding, oldNode, newNode) {
+      console.log('el', el)
+      console.log('binding', binding)
+      console.log('oldNode', oldNode)
+      console.log('newNode', newNode)
+      console.log('inserted执行了')
+      // el.focus()
+      if (binding.modifiers.a) {
+        el.focus()
+      }
+    },
+    // componentUpdated () {},
+    // update () {},
+    // unbind () {}
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+</html>

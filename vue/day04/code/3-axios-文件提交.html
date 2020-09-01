@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+  <div id="app">
+    <div class="row">
+      <label for=""> 用户名 </label>
+      <input type="text" v-model="username">
+    </div>
+    <div class="row">
+      <label for=""> 请选择图片 </label>
+      <input type="file" name="" id="" @change="getImg">
+      <img :src="pic" alt="">
+    </div>
+    <div class="row">
+      <button @click="submit"> 提交 </button>
+    </div>
+    
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  const baseURL = 'https://elm.cangdu.org'
+  new Vue({
+    el: '#app',
+    data: {
+      username: '',
+      file: '',
+      pic: ''
+    },
+    methods: {
+      submit () {
+        const p = new FormData()
+        p.append('username',this.username)
+        p.append('file',this.file)
+        axios.post(`${baseURL}/v1/addimg/shop`,p,{
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(res => {
+          // console.log('res',res)
+          this.pic = 'https://elm.cangdu.org/img/'+ res.data.image_path
+        }).catch(error => Promise.reject(error))
+      },
+      getImg (e) {
+        this.file = e.target.files[0]
+      }
+    }
+  })
+</script>
+</html>

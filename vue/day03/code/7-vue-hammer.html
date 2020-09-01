@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    p {
+      width: 100px;
+      height: 100px;
+      background: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p v-tap="tapHandler"></p>
+    <p v-swipeleft="tapHandler"></p>
+    <p v-press="tapHandler"></p>
+  </div>
+</body>
+<script src="./js/hammer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.directive('tap', {
+    bind(el, binding) {
+      const hammer = new Hammer(el)
+      // hammer.on(事件名，触发函数)
+      console.log("binding", binding);
+      hammer.on(binding.name, binding.value)
+    }
+  })
+  Vue.directive('swipeleft', {
+    bind(el, binding) {
+      const hammer = new Hammer(el)
+      // hammer.on(事件名，触发函数)
+      hammer.on(binding.name, binding.value)
+    }
+  })
+  Vue.directive('press', {
+    bind(el, binding) {
+      const hammer = new Hammer(el)
+      // hammer.on(事件名，触发函数)
+      hammer.on(binding.name, binding.value)
+    }
+  })
+  Vue.directive('rotate', {
+    bind(el, binding) {
+      const hammer = new Hammer(el)
+      // hammer.on(事件名，触发函数)
+      hammer.on(binding.name, )
+    }
+  })
+  Vue.directive('pinch', {
+    bind(el, binding) {
+      const hammer = new Hammer(el)
+      // hammer.on(事件名，触发函数)
+      hammer.on(binding.name, )
+    }
+  })
+  new Vue({
+    el: '#app',
+    methods: {
+      tapHandler() {
+        alert('tap')
+      }
+    }
+  })
+</script>
+
+</html>

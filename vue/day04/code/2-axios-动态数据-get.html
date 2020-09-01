@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.1.0/axios.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click="get"> get请求 </button>
+    <ul>
+      <li v-for = "item in lists">
+        <h3> {{ item.d_title }} </h3>
+        <img :src="item.pic" alt="" width="100" height="100">
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  const baseURL = 'http://59.110.226.77:3000/api'
+  new Vue({
+    el: '#app',
+    data: {
+      lists: []
+    },
+    methods: {
+      get () {
+        // 写法一
+          // axios.get(`${baseURL}/list/hot`,{
+          //   params: {
+          //     cid: 17
+          //   }
+          // }).then(res => {
+          //   // console.log('res',res)
+          //   this.lists = res.data.content
+          // }).catch(error => Promise.reject(error))
+        //写法二
+            axios({
+              url: `${baseURL}/list/hot`,
+              params: {
+                cid: 17
+              }
+            }).then(res => {
+              this.lists = res.data.content 
+            }).catch(error => Promise.reject(error))
+      }
+    }
+  })
+</script>
+</html>

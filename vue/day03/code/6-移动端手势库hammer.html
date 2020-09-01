@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box"></div>
+</body>
+<script src="./js/hammer.min.js"></script>
+<script>
+  const hammer = new Hammer(document.querySelector('.box'))
+  // hammer.on(事件名，事件处理程序)
+  hammer.on('press', function () {
+    alert('事件触发了')
+  })
+  
+</script>
+
+</html>

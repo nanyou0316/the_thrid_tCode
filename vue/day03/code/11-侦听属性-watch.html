@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="increment"> + </button>
+    <p> {{count}} </p>
+    问题：数据是多层结构时，watch写成方法就监听不到了
+    <hr>
+    <input type="text" v-model="people.name">
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  /* 
+   * watch
+   * watch是专门用来监听已有数据的，也就是它有监听目标
+   * watch的触发条件： 数据改变它就触发
+   * 书写格式
+   * 1.方法 --- 方法名就是数据名【监听目标】
+   * 2.对象
+   * 经验：
+   * 监听数据一层，我们写方法
+   * 监听数据是多层，我们写对象  
+   */
+  new Vue({
+    el: '#app',
+    data: {
+      count: 0,
+      people: {
+        name: 'lakers'
+      }
+    },
+    methods: {
+      increment() {
+        this.count++
+      }
+    },
+    watch: {
+      count() {
+        console.log('count发生改变了')
+      },
+      // people () {
+      //   console.log('people发生了改变')
+      // } 
+      people: {
+        deep: true, //表示深度监听
+        handler() {
+          console.log('people发生了改变')
+        }
+      }
+    }
+  })
+</script>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    需求： 分页案例
+    <hr>
+    <button @click="increment"> + </button>
+    <hr>
+    <ul>
+      <li v-for='item in lists'>
+        <img width="100" height="100" :src="item.pic" />
+        <h3> {{ item.d_title }} </h3>
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./js/data.js"></script>
+<script>
+  /* 
+   * watch在真实案例里面哪里用？
+   * 1. url路径改变，app端头部和底部栏样式改变
+   */
+  new Vue({
+    el: '#app',
+    data: {
+      count: 0,
+      lists: data[0]
+    },
+    watch: {
+      count() {
+        this.lists = data[this.count]
+      }
+    },
+    methods: {
+      increment() {
+        this.count++
+      }
+    }
+  })
+</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.1.0/axios.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click="getPostData"> 请求模拟数据 - post </button>
+    <ul>
+      <li v-for = "item in postData">
+        <p>用户名：{{ item.reg }} </p>
+        <p>日期 {{item.date }}</p>
+        <p :style="{background: item.color }"> 颜色 </p>
+        <img src="item.pic" alt="">
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  //只要引入axios cdn 那么我们会得到一个全局变量叫做axios
+  const baseURL = 'https://www.fastmock.site/mock/d2c5e7d9cd0cf427044873083441fd03/api'
+  new Vue({
+    el: '#app',
+    data: {
+      postData: []
+    },
+    methods: {
+      getPostData () {
+        // axios.post(url,data?,options?)
+        axios.post(`${baseURL}/getUserInfo`,{
+          shopId: 'xx',
+          token: 'xx'
+        }).then(res => {
+          console.log('res',res)
+          this.postData = res.list
+        }).catch(error => Promise.reject(error))
+      }
+    }
+  })
+</script>
+</html>

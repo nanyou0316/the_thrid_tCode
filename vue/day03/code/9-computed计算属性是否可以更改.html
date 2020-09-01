@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="num">
+    <p> {{ num }} </p>
+    <input type="text" v-model="doubleNum">
+    <p> {{ doubleNum }} </p>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  /* 
+   * 计算属性能否更改？
+   * 计算中的方法时不可更改的
+   * 计算属性要想更改必须有setter
+   */
+  new Vue({
+    el: '#app',
+    data: {
+      num: 10
+    },
+    computed: {
+      // 计算属性写法一
+      // doubleNum () {
+      //   return this.num*2
+      // }
+      // 计算属性写法二
+      doubleNum: {
+        //getter
+        get() {
+          return this.num * 2
+        },
+        //setter
+        set(val) {
+          console.log('val', val)
+          this.num = val / 2
+        }
+      }
+    },
+  
+  })
+</script>
+
+</html>

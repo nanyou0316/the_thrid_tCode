@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p v-content="msg"></p>
+  </div>
+
+  <div id="root">
+    <p v-content="str"></p>
+    <!-- <p v-content>{{str}}</p>//自定义的指令不能用插值表达式 -->
+  </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.directive('content', {
+    inserted(el, binding) {
+      el.innerHTML = binding.value
+    }
+  })
+
+  new Vue({
+    el: '#root',
+    data: {
+      str: 'Hello 千锋'
+    }
+  })
+
+
+  new Vue({
+    el: '#app',
+    data: {
+      msg: '千锋教育'
+    }
+  })
+</script>
+
+</html>

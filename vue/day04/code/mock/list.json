@@ -1,0 +1,46 @@
+{
+    "list": [
+        {
+            "id": 1,
+            "shopName": "rR1",
+            "date": "1980-01-29",
+            "pic": "http://dummyimage.com/200x100/79c1f2/FFF.png&text=!",
+            "color": "#f28679"
+        },
+        {
+            "id": 2,
+            "shopName": "tW3",
+            "date": "1980-01-29",
+            "pic": "http://dummyimage.com/200x100/f29579/FFF.png&text=!",
+            "color": "#cd79f2"
+        },
+        {
+            "id": 3,
+            "shopName": "bQ5",
+            "date": "1980-01-29",
+            "pic": "http://dummyimage.com/200x100/f2799d/FFF.png&text=!",
+            "color": "#f279ad"
+        },
+        {
+            "id": 4,
+            "shopName": "vT1",
+            "date": "1980-01-29",
+            "pic": "http://dummyimage.com/200x100/79a8f2/FFF.png&text=!",
+            "color": "#cd79f2"
+        },
+        {
+            "id": 5,
+            "shopName": "tQ7",
+            "date": "1973-09-09",
+            "pic": "http://dummyimage.com/200x100/b379f2/FFF.png&text=!",
+            "color": "#cd79f2"
+        },
+        {
+            "id": 6,
+            "shopName": "pM8",
+            "date": "1973-09-09",
+            "pic": "http://dummyimage.com/200x100/79a8f2/FFF.png&text=!",
+            "color": "#79d0f2"
+        }
+    ]
+}

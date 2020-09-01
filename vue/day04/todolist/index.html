@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/sm.min.css" />
+  <link rel="stylesheet" href="./css/index.css" />
+  <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/2.0/animate.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <div class="page-group">
+      <div class="page page-current">
+        <!-- 你的html代码 -->
+        <!-- header -- start -->
+        <header class="bar bar-nav">
+          <a class="icon icon-friends pull-left"></a>
+          <a class="icon icon-edit pull-right" @click="openEditMaskFlag"></a>
+          <h1 class="title">TO_LIST</h1>
+        </header>
+        <!-- header -- end -->
+        <!-- content -- start  -->
+        <div class="content">
+          <transition-group  enter-active-class="animated bounceInLeft"
+            leave-active-class="animated bounceOutRight">
+            <div class="card" v-for="(item,index) in newTodos" :key="item.task">
+              <div class="card-content">
+                <div class="card-content-inner">
+                  {{ item.task }}
+                  <div class="btn-box">
+                    <button class="button button-success" :class="{'button-fill': item.flag }"
+                      @click="changFlag(index)">
+                      <i class="icon icon-check"></i>
+                    </button>
+                    <button class="button button-danger button-fill" @click="remove(index)">
+                      <i class="icon icon-remove"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </transition-group>
+
+        </div>
+        <!-- content -- end -->
+
+        <div class="tab-bar">
+          <ul>
+            <li v-for="item in tabBars" class="button" :class="[item.style,type==item.type?'button-fill':'']"
+              @click="changeType(item.type)">
+              {{ item.options }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- edit_mask -- start -->
+        <div class="edit_mask" v-show="edit_mask_flag">
+          <div class="edit_content">
+            <input type="text" placeholder="请输入您的代办事项" v-model="val" @keyup.enter="editConfirm">
+            <div class="edit_btn">
+              <button class="button button-fill button-warning">取消</button>
+              <button class="button button-fill button-success" @click="editConfirm">确定</button>
+            </div>
+          </div>
+        </div>
+        <!-- edit_mask -- end -->
+
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./js/vue.js"></script>
+<script src="./js/index.js"></script>
+
+</html>

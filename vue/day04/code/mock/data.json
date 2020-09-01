@@ -1,0 +1,36 @@
+{
+    "list": [
+        {
+            "id": 1,
+            "moviename": "赵二麻子",
+            "reg": "vC7",
+            "date": "2009-01-29",
+            "pic": "http://dummyimage.com/200x100/f279b4/FFF.png&text=!",
+            "color": "#f279dc"
+        },
+        {
+            "id": 2,
+            "moviename": "赵二麻子",
+            "reg": "hH8",
+            "date": "1979-06-07",
+            "pic": "http://dummyimage.com/200x100/d2f279/FFF.png&text=!",
+            "color": "#79bef2"
+        },
+        {
+            "id": 3,
+            "moviename": "姜亮",
+            "reg": "lO0",
+            "date": "2009-01-29",
+            "pic": "http://dummyimage.com/200x100/f279b4/FFF.png&text=!",
+            "color": "#f2e979"
+        },
+        {
+            "id": 4,
+            "moviename": "张三",
+            "reg": "kE3",
+            "date": "1979-06-07",
+            "pic": "http://dummyimage.com/200x100/f2d079/FFF.png&text=!",
+            "color": "#f27f79"
+        }
+    ]
+}
