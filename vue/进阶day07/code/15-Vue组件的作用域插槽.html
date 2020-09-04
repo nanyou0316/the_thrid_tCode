@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    作用域插槽： 将本应该在组件模板或者组件内使用的数据，放到了组件的内容中去使用
+    <hr>
+    <Hello>
+      <template v-slot:default="tools">
+        <!-- 使用子组件内的数据 -->
+        <p> 我的名字是 {{ tools.amao }} </p>
+        <p> 我的年龄是 {{ tools.age }} </p>
+      </template>
+    </Hello>
+
+
+  </div>
+  <template id="hello">
+    <div>
+      <!-- 在slot里面绑定子组件的数据 -->
+      <slot :amao="username" :age="age"></slot>
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  Vue.component('Hello', {
+    template: '#hello',
+    data() {
+      return {
+        username: 'lakers',
+        age: 18
+      }
+    }
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+</html>

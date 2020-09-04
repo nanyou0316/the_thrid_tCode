@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <hello-a></hello-a>
+  </div>
+  <template id="hello-a">
+    <div>
+      HelloA 
+      <hr>
+      将子组件以标签化形式放到父组件的模板中就形成了父子级关系
+      <hr>
+      <hello-b></hello-b>
+    </div>
+  </template>
+  <template id="hello-b">
+    <div>
+      HelloB
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  /* 
+    * 组件嵌套指的就是组件形成父子级关系
+  */
+  new Vue({
+    el: '#app',
+    components: {
+      HelloA: {
+        template: '#hello-a',
+        components: {
+          'HelloB': {
+            template: '#hello-b'
+          }
+        }
+      }
+    }
+  })
+</script>
+</html>

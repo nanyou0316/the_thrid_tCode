@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    vue提供了一个可以渲染成任意组件的内置组件，这个组件我们称之为 动态组件 
+    <hr>
+    <button @click="changeFlag"> 组件切换 </button>
+    <component :is="flag?'HelloA':'HelloB'"></component>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  //切记： 组件是一个独立的个体，自己的数据自己改
+ Vue.component('HelloA',{
+    template: '<div>HelloA</div>'
+  }),
+  Vue.component('HelloB',{
+    template: '<div>HElloB</div>'
+  })
+  new Vue({
+    el: '#app',
+    data: {
+      flag: true 
+    },
+    methods: {
+      changeFlag () {
+        this.flag = !this.flag 
+      }
+    }
+  })
+</script>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="form-group">
+          <label for=""> 商品id </label>
+          <input
+            v-model="id"
+            type="text"
+            name=""
+            id="id"
+            class="form-control"
+            placeholder=""
+            aria-describedby="helpId"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for=""> 商品名称 </label>
+          <input
+            type="text"
+            name=""
+            v-model="name"
+            id="name"
+            class="form-control"
+            placeholder=""
+            aria-describedby="helpId"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for=""> 商品价格 </label>
+          <input
+            type="text"
+            name=""
+            v-model="price"
+            id="price"
+            class="form-control"
+            placeholder=""
+            aria-describedby="helpId"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for=""> 商品库存量 </label>
+          <input
+            type="text"
+            name=""
+            v-model="num"
+            id="num"
+            class="form-control"
+            placeholder=""
+            aria-describedby="helpId"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for=""> 商品图片 </label>
+          <input
+            @change="getPic"
+            type="file"
+            name=""
+            id="pic"
+            class="form-control"
+            placeholder=""
+            aria-describedby="helpId"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for=""> 商品描述 </label>
+          <input
+            type="text"
+            name=""
+            v-model="desc"
+            id="desc"
+            class="form-control"
+            placeholder=""
+            aria-describedby="helpId"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for=""> 商品标题 </label>
+          <input
+            type="text"
+            v-model="title"
+            name=""
+            id="title"
+            class="form-control"
+            placeholder=""
+            aria-describedby="helpId"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <button
+          type="button"
+          @click="addShop"
+          id="add_shop"
+          class="btn btn-primary"
+        >
+          添加商品
+        </button>
+      </div>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script src="./js/ins.js"></script>
+  <script>
+    new Vue({
+      el: ".container",
+      data: {
+        id: "",
+        name: "",
+        price: "",
+        num: "",
+        pic: "",
+        desc: "",
+        title: "",
+      },
+      methods: {
+        async getPic(e) {
+          const {
+            data: { image_path },
+          } = await request({
+            url: "https://elm.cangdu.org/v1/addimg/shop",
+            method: "POST",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            data: {
+              file: e.target.files[0],
+            },
+          });
+          this.pic = `https://elm.cangdu.org/img/${image_path}`;
+        },
+        async addShop() {
+          const {data: {status,msg}} = await request({
+            url: "http://localhost:3000/api/shop",
+            method: "post",
+            data: {
+              shopId: this.id,
+              shopName: this.name,
+              shopPrice: this.price,
+              shopNum: this.num,
+              shopPic: this.pic,
+              shopDesc: this.desc,
+              shopTitle: this.title,
+            },
+          });
+          if (status == 1) {
+            location.href = './shopList.html'
+          } else {
+            alert(msg)
+          }
+        },
+      },
+    });
+  </script>
+</html>

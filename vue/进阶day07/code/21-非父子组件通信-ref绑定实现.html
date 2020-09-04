@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <Sister :da ="da"></Sister>
+    <Brother ref="son"></Brother>
+  </div>
+  <template id="sister"><div>
+    <button @click="da"> 揍弟弟 </button>
+  </div></template>
+  <template id="brother"><div>
+    <img v-show="flag" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2436364968,682201109&fm=26&gp=0.jpg" alt="">
+  </div></template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  Vue.component('Sister',{
+    template: '#sister',
+    props: ['da']
+  })
+  Vue.component('Brother',{
+    template: '#brother',
+    data () {
+      return {
+        flag: false 
+      }
+    },
+    methods: {
+      changeFlag () {
+        this.flag = !this.flag 
+      }
+    }
+  })
+  new Vue({
+    el: '#app',
+    methods: {
+      da () {
+        // console.log('this',this)
+        this.$refs.son.changeFlag()
+      }
+    }
+  })
+</script>
+</html>

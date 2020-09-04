@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="changeFlag">
+      {{flag?'手机验证码登录':'用户名密码登录'}}
+    </button> <br>
+    vue中提供了一个内置组件： 动态缓存  keep-alive  <hr>
+    include表示包含的这个放入缓存 <hr>
+    exclude表示除了这个，把其他放入缓存
+    <hr>
+    <keep-alive
+      exclude="UserLogin"
+    >
+      <component :is="flag?'UserLogin':'PhoneLogin'"></component>
+    </keep-alive>
+    <button> 登录 </button>
+  </div>
+  <template id="phone-login">
+    <div>
+      <div class="row">
+        <label for="">手机号</label>
+        <input type="text">
+      </div>
+      <div class="row">
+        <input type="text"><button>发送验证码</button>
+      </div>
+    </div>
+  </template>
+  <template id="user-login">
+    <div>
+      <div class="row">
+        <label for="">用户名</label>
+        <input type="text">
+      </div>
+      <div class="row">
+        <label for="">密码</label>
+        <input type="text">
+      </div>
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  Vue.component('PhoneLogin',{
+    template: '#phone-login'
+  })
+  Vue.component('UserLogin',{
+    template: '#user-login'
+  })
+  new Vue({
+    el: '#app',
+    data: {
+      flag: true 
+    },
+    methods: {
+      changeFlag () {
+        this.flag = !this.flag 
+      }
+    }
+  })
+</script>
+</html>

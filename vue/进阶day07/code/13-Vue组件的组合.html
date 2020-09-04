@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+     <App>
+       <Tab></Tab>
+       <Container></Container>
+       <tab-bar></tab-bar>
+     </App>
+  </div>
+  <template id="root">
+    <div>
+      <!-- 插槽：给组件的内容预留一部分空间，等到组件内容被填写时渲染 -->
+      <slot></slot>
+    </div>
+  </template>
+  <template id="tab">
+    <header>头部</header>
+  </template>
+  <template id="content">
+    <div class="content">内容区域</div>
+  </template>
+  <template id="footer">
+    <div> 底部栏 </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  Vue.component('App',{
+    template: '#root'
+  })
+  Vue.component('Tab',{
+    template: '#tab'
+  })
+  Vue.component('Container',{
+    template: '#content'
+  })
+  Vue.component('TabBar',{
+    template: '#footer'
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+</html>

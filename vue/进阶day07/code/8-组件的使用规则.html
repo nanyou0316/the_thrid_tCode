@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <table>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <!-- <Hello/>  table会将Hello踢出 -->
+      <!-- 通过is来绑定组件名 -->
+      <tr is="Hello"></tr>
+    </table>
+  </div>
+  <template id="hello">
+    <tr>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  /* 
+    * 1. 组件是以标签化使用的
+    * 2. ul>li  table>tr>td  ol>li  select>option
+    * 3. 凡是html中直接父子级规定的标签，在使用组件代替时要使用is属性
+  */
+  Vue.component('Hello',{
+    template: '#hello'
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+</html>

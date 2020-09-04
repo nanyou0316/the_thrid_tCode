@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <Hello></Hello>
+    <!-- <TabBar></TabBar> -->
+    <tab-bar></tab-bar>
+  </div>
+  <template id="hello">
+    <div> Hello </div>
+  </template>
+  <template id="tab-bar">
+    <div>底部栏</div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  // 组件名要求大驼峰形式
+  // 组件名要求要有实际含义
+  Vue.component('Hello',{template: '#hello'})
+  Vue.component('TabBar',{template: '#tab-bar'})
+  Vue.component('Swiper',{template: '#tab-bar'})
+  Vue.component('Tab',{template: '#tab-bar'})
+  Vue.component('Nav',{template: '#tab-bar'})
+  Vue.component('Slide',{template: '#tab-bar'})
+  Vue.component('DashBoard',{template: '#tab-bar'})
+  Vue.component('Setting',{template: '#tab-bar'})
+  Vue.component('Home',{template: '#tab-bar'})
+  Vue.component('ShopCar',{template: '#tab-bar'})
+  new Vue({
+    el: '#app'
+  })
+
+
+</script>
+</html>

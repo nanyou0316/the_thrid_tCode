@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .btn {
+      width: 100px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border: none;
+      border-radius: 10px;
+      margin: 10px;
+    }
+
+    .btn.btn-primary {
+      background: blue;
+      color: white;
+    }
+
+    .btn.btn-danger {
+      background: red;
+      color: white;
+    }
+
+    .btn.btn-warn {
+      background: orangered;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button-comp type="primary"> 确定 </button-comp>
+    <button-comp type="danger"> 删除 </button-comp>
+    <button-comp type="warn"> 警告 </button-comp>
+  </div>
+  <template id="btn">
+    <div>
+      <button class="btn" :class="['btn-'+type]">
+        <slot></slot>
+      </button>
+    </div>
+  </template>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script> 
+<script>
+  Vue.component('ButtonComp', {
+    template: '#btn',
+    props: ['type'] //props是用于接收绑定在组件身上的属性的
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+</html>

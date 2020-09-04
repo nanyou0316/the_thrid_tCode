@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <Father />
+  </div>
+  <template id="father">
+    <div>
+      <!-- 子父通信是通过在son组件身上绑定自定义事件来实现的 -->
+      <!-- 2.接收事件 -->
+      <Son v-on:shou="addSfq"></Son>
+      <hr>
+      <p>我的私房钱有 {{ sfq }}</p>
+    </div>
+  </template>
+  <template id="son">
+    <div>
+
+      <button @click="give"> 父亲节到了，给老爸红包 </button>
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  /* 
+    * 到了父亲节了，我们需要给老爸包红包 
+    * 子父组件通信: 自定义事件来实现的
+      *  子  给   父 
+      *  父接收
+  */
+  Vue.component('Father', {
+    template: '#father',
+    data() {
+      return {
+        sfq: 300
+      }
+    },
+    methods: {
+      addSfq(hongbao) {
+        this.sfq += hongbao
+      }
+    }
+  })
+  Vue.component('Son', {
+    template: '#son',
+    data() {
+      return {
+        hb: 8888
+      }
+    },
+    methods: {
+      //1.发射事件
+      give() {
+        this.$emit('shou', this.hb)
+      }
+    }
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+</html>

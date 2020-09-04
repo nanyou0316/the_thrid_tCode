@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for = "(item,index) in lists " :key="item.id">
+        <p> {{ item.content }} </p>
+        <div class="btn">
+          <button @click="getRed"> 将li变成红色 </button>
+          <button @click="remove(index)" > 将li删除 </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      lists: [
+        {
+          id: 1,
+          content: '商品一'
+        },
+        {
+          id: 2,
+          content: '商品二'
+        },
+        {
+          id: 3,
+          content: '商品三'
+        }
+      ]
+    },
+    methods: {
+      getRed (e) {
+        e.target.parentNode.parentNode.style.background = 'red'
+      },
+      remove (index) {
+        this.lists.splice(index,1)
+      }
+    }
+  })
+</script>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"> 
+    <Hello/>  
+  </div>
+  <template id="hello">
+    <!-- jsx结构 -->
+    <div class="hello">
+      <p> {{ msg }} </p>
+    </div>
+  </template>
+</body>
+<script src="../../../dep/vue.js"></script>
+<script>
+  console.log(1)
+  // 1. 任意一个组件都有生命周期钩子函数 11  
+  Vue.component('Hello',{
+    template: '#hello',
+    data () {
+      return {
+        msg: 'Hello Vue.js'
+      }
+    },
+    beforeCreate () {
+      /* 
+        * beforeCreate 表示组件创建前
+        * 任务
+          * 内部任务 init events &  init inject  初始化事件和初始化options选项
+        * 注意点
+          * 这个钩子函数中可以获得data中的数据吗？
+          * 这个钩子函数中可以获得真实dom吗？     
+      */
+      console.log('Hello-beforeCreate',this.msg)
+      console.log('Hello-beforeCreate',document.querySelector('.hello'))
+    },
+    created () {
+      /* 
+        * 表示组件创建结束 
+        * 任务
+          *  对dat应a选项或者computed选项进行数据响处理
+        * 注意点
+          *  数据到手
+          *  RDOM没有到手
+        * 经验
+          *  可以进行数据修改  ---- 数据请求 
+        * 隐藏内容
+          *    render函数  将 jsx -> vdom对象结构 
+      */
+      // this.msg = 'hello 今日周四'
+      // fetch('http://59.110.226.77:3000/api/list/hot?cid=17')
+      //   .then(res=>res.json())
+      //   .then(data => {
+      //     this.msg = data 
+      //   }).catch(err=> Promise.reject(err))
+      console.log('Hello-created',this.msg )
+      console.log('Hello-created',document.querySelector('.hello'))
+    },
+    beforeMount () {
+      /* 
+        * 表示组件挂载前
+        * 任务
+          * 内部任务
+            * 1. 判断组件是否有el选项
+              *  是 
+              *  否  手动添加  new Vue({}).$mount()
+            * 2. 判断组件是否有template选项
+              * 有 -> render -> jsx -> VDOM对象模型
+              * 否 -> 手动添加 -> outerHTML
+              * const vdom = h()
+          * 生成vdom的
+        * 注意点
+          * 数据到手
+          *   
+        *  经验
+          *  这个钩子不用
+      */
+      console.log('Hello-beforeMount',document.querySelector('.hello'))
+    },
+    mounted () {
+      /* 
+        * 表示组件挂载结束 -  已经插入页面了
+        * 任务
+          * 将vdom渲染真实dom patch(container,vdom)
+        * 注意点
+          *  数据到手
+          *  真实dom有的,可以进行真实dom操作了
+      
+      */
+      document.querySelector('.hello').style.background = 'red'
+      console.log('Hello-mounted',document.querySelector('.hello'))
+    }
+  })
+  new Vue({
+    beforeCreate () {
+      console.log('Root-beforeCreate')
+    },
+    created () {
+      console.log('Root-created')
+    },
+    beforeMount () {
+      console.log('Root-beforeMount')
+    },
+    mounted () {
+      console.log('Root-mounted')
+    }
+  }).$mount('#app')
+  console.log(2)
+</script>
+</html>

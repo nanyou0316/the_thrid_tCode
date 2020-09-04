@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <div class="box" data-index="0">
+    <h3></h3>
+    <ul>
+      <li></li>
+      <li></li>
+    </ul>
+  </div> -->
+</body>
+<script>
+  const data = {
+    name: 'lakers'
+  }
+  // 对象模型
+  const vdom = {
+    tab: 'DIV',
+    attr: {
+      class: 'box',
+      'data-index': 0,
+      style: {
+        width: '100px',
+        height: '100px',
+        background: 'red'
+      }
+    },
+    content: [
+      {
+        tag: 'H3',
+        content: [data.name]
+      },
+      {
+        tag: 'UL',
+        content: [
+          {
+            tag: 'LI',
+            content: ['商品一']
+          },
+          {
+            tag: 'LI',
+            content: ['商品二']
+          }
+        ]
+      }
+    ]
+  }
+
+  data.name  = '兵哥'
+
+  vdom = {
+    tab: 'DIV',
+    attr: {
+      class: 'box',
+      'data-index': 0,
+      style: {
+        width: '100px',
+        height: '100px',
+        background: 'red'
+      }
+    },
+    content: [
+      {
+        tag: 'H3',
+        content: [data.name]
+      },
+      {
+        tag: 'UL',
+        content: [
+          {
+            tag: 'LI',
+            content: ['商品一']
+          },
+          {
+            tag: 'LI',
+            content: ['商品二']
+          }
+        ]
+      }
+    ]
+  }
+
+  // document.createElement()
+  // render()
+
+
+  //vdom 渲染过程
+  1. 定义数据
+  2. 根据数据渲染vdom
+  3. 通过render函数将vdom渲染真实dom
+  4. 数据改变
+  5. vdom重新生成
+  6. 通过diff算法来比较两次vdom的差异，得到一个patch补丁对象【vdom结构】
+  7. 将patch补丁对象渲染成真实dom
+
+</script>
+</html>

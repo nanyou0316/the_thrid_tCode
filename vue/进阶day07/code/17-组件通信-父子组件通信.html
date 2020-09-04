@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <Father />
+  </div>
+  <template id="father">
+    <div>
+      在父组件模板中，通过单向数据绑定的形式将数据绑定到子组件身上
+      <hr>
+      <Son :aa="money" />
+    </div>
+  </template>
+  <template id="son">
+    <div>
+      子组件通过props接收到的属性，可以直接在子组件范围内使用
+      <hr>
+      <p>老爸给了我 {{ bb }} </p>
+    </div>
+  </template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  /* 
+    * 父子组件通信 
+      * 父 给 子 数据
+        * 数据    父
+        * 给      动作
+        * 接受者  子 
+  */
+  Vue.component('Father', {
+    template: '#father',
+    data() {
+      return {
+        money: 2000
+      }
+    }
+  })
+  Vue.component('Son', {
+    template: '#son',
+    props: {
+      aa: [String, Number],
+      default: 0
+    },
+    data() {
+      return {
+        bb: this.aa
+      }
+    }
+
+
+
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+</html>

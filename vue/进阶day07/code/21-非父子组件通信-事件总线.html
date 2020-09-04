@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <Sister></Sister>
+    <Brother></Brother>
+  </div>
+  <template id="sister">
+    <div>
+      <button @click="da"> 揍弟弟 </button>
+    </div>
+  </template>
+  <template id="brother">
+    <div>
+      <img v-show="flag"
+        src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2436364968,682201109&fm=26&gp=0.jpg" alt="">
+    </div>
+  </template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  const bus = new Vue() // bus.$on  bus.$emit 
+  Vue.component('Sister', {
+    template: '#sister',
+    methods: {
+      da() {
+        //1.发射事件
+        bus.$emit('zou')
+      }
+    }
+  })
+  Vue.component('Brother', {
+    template: '#brother',
+    data() {
+      return {
+        flag: false
+      }
+    },
+    mounted() {
+      // 这个方法表示组件创建结束 
+      //2.接收事件
+      bus.$on('zou', () => {
+        this.flag = !this.flag
+      })
+    }
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    组件在这个范围中使用 <br>
+    组件是以标签化形式来使用的 <br>
+    <Hello></Hello>
+    <Hello/>
+  </div>
+
+  <template id="hello">
+    <div>
+      Hello
+    </div>
+  </template>
+
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+    //先做一个扩展功能
+    // Vue.extend(options)
+    const HelloComp = Vue.extend({
+      template: '#hello',
+      /* 
+        * Why data is Function?
+          * 1. 组件是一个独立的个体，那么它的数据必然是独立属于自己的
+          * 2. 函数提供了独立作用域
+        * Why data 返回值是一个对象?
+          * data选项需要经过对象拦截和数组劫持处理 Object.defineProperty(obj,attr,{get,set})  
+      */
+      data () {
+        return {
+          msg: 'Hello Vue 组件'
+        }
+      }
+    })
+    // 组件要想在vue中使用，必须注册
+    // Vue.component(组件名,组件)
+    Vue.component('Hello',HelloComp)
+    //组件使用有两个要求
+    // 1. 必须放在new Vue() 范围中
+    // 2. 组件的注册放在new Vue() 上面的
+    new Vue({
+      el: '#app',
+      data: {}
+    }) 
+</script>
+</html>

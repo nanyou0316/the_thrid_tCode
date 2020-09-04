@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="getStatic"> 请求模拟数据 </button>
+    <button @click="get"> 请求静态数据 - get </button>
+    <button @click="postJson"> 请求动态数据 - post-json </button>
+    <button @click="postForm"> 请求动态数据 - post-form </button>
+    <input type="file" name="" id="" @change="postFile">
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  const baseURL = 'https://www.fastmock.site/mock/d2c5e7d9cd0cf427044873083441fd03'
+  new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+      getStatic () {
+        //参数操作
+        const data = {
+          a: 1,
+          b: 2,
+          c: 3
+        }
+        let str = ''
+        Object.keys(data).map(item=> {
+          if (item != 'b'){
+            str+=item+'='+data[item]+'&'
+          }
+        })
+        fetch(`${baseURL}/api/getUserInfo?${str.slice(0,-1)}`)
+          .then(res => res.json()) //数据格式化 text()文本格式化  blob() 二进制格式化
+          .then(data => console.log('data',data))
+          .catch(error => Promise.reject(error))
+
+      },
+      //1.fetch中get请求中的参数拼接在url地址后面
+      get () {
+        fetch('http://59.110.226.77:3000/api/list/hot?cid=17')
+          .then(res => res.json())
+          .then(data => {
+            console.log('data',data)
+          }).catch(error => Promise.reject(error))
+      },
+      //2.fetch中post以json格式提交，参数里面申明method（请求方式） headers（'Content-Type': 'application/json'） body（参数）
+      postJson ( ) {
+        fetch('http://59.110.226.77:3000/api/user/login',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: 'yanyabing',
+            password: 123
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log('data',data)
+          }).catch(error => Promise.reject(error))
+      },
+      //3.fetch中post以表单格式提交，参数里面申明method（请求方式）headers（new Headers({'Content-Type': 'application/x-www-form-urlencoded'}) body(携带的请求参数  实例new URLSearchParams([['username','yanyabing'],['password','123']])).toString()）  
+      postForm () {
+        fetch('http://59.110.226.77:3000/api/user/login',{
+          method: 'POST',
+          headers: new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }),
+          body: (new URLSearchParams([['username','yanyabing'],['password','123']])).toString()
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log('data',data)
+          }).catch(error => Promise.reject(error))
+      },
+      //4.fetch中的表单提交 不用设置headers
+      postFile (e) {
+        // fetch中文件提交的请求头不加
+        const p = new FormData()
+        p.append('file',e.target.files[0])
+        fetch('https://elm.cangdu.org/v1/addimg/shop',{
+          method: 'POST',
+          body: p 
+          }).then(res => res.json())
+          .then(data => {
+            console.log('data',data)
+          }).catch(error => Promise.reject(error))
+      }
+    }
+  })
+</script>
+</html>

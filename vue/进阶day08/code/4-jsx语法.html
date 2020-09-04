@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p> {{ msg }} </p>
+  </div>
+</body>
+<script type="text/babel">
+/* 
+  * jsx语法
+*/
+  const data = {
+    name: 'lakers'
+  }
+  const vdom1 = <div className="box" data-index="0">
+    <h3> data.name  </h3>
+    <ul>
+      <li> {{ a = 10 }} </li>  
+      <li>2</li>  
+    </ul>
+  </div>
+
+  data.name = '兵哥'
+  vdom2 = <div className="box" data-index="0">
+    <h3> data.name  </h3>
+    <ul>
+      <li> {{ a = 10 }} </li>  
+      <li>2</li>  
+    </ul>
+  </div>
+
+  jsx结构vdom是不能用于diff比较的
+
+  jsx结构必须转成对象结构才能用于diff比较
+
+  const vdomObj1 = render(vdom1)
+  const vdomObj2 = render(vdom2)
+
+  patch(vdomObj1,vdomObj2)
+
+
+</script>
+
+</html>

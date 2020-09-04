@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <Hello/>
+  </div>
+
+  <div id="root">
+    <Hello/>
+
+  </div>
+
+  <template id="hello">
+    <div>
+      Hello
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  const HelloComp = Vue.extend({
+    template: '#hello'
+  })
+  Vue.component('Hello',HelloComp)
+  new Vue({
+    el: '#app',
+  })
+  new Vue({
+    el: '#root'
+  })
+</script>
+</html>

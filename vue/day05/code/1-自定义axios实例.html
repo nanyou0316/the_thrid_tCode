@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="get"> get </button>
+    <button @click="post"> post </button>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  /* 
+   * 统一添加url
+   */
+  // ins就是自定义请求实例
+  const ins = axios.create({
+    baseURL: 'http://localhost:3000', // 统一添加请求前缀
+    timeout: 4000 // 请求延迟时间
+  })
+  // 设置统一post请求头为表单提交
+  ins.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+
+  // 设置拦截器 - 请求拦截器
+  ins.interceptors.request.use(function (config) {
+    //config就是请求的配置
+    // 常用业务就是token的携带
+    const token = 'xxx'
+    config.headers.common['authToken'] = token
+    //加一个返回值
+    return config
+  }, function (error) {
+    return Promise.reject(error)
+  })
+
+  // 响应拦截器操作 - 对获得的数据做格式化处理
+  ins.interceptors.response.use(function (res) {
+    console.log('result', res)
+    let {
+      status,
+      data
+    } = res
+    data = data.split('').reverse().join('')
+    //如果status是除了200以外的，将结果操作catch捕获 
+    if (state != 200) {
+      throw new Error(JSON.stringify(res))
+    }
+    return {
+      status,
+      data
+    }
+  }, function (error) {
+    return Promise.reject(error)
+  })
+
+  new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+      get() {
+        ins.get('/users', {
+            params: {
+              cid: 17
+            }
+          }).then(res => console.log('res', res))
+          .catch(error => Promise.reject(error))
+      },
+      //post json提交
+      post() {
+      
+        ins.post('/api/user/login', {
+            username: 'yanyabing',
+            password: '123'
+          }, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(res => {
+            console.log('res', res)
+          })
+          .catch(error => Promise.reject(error))
+      },
+      //post 表单提交
+      post() {
+        const p = new URLSearchParams()
+        p.append('username', 'yanyabing')
+        p.append('password', '123')
+        ins.post('/api/user/login',p)
+          .then(res => {
+            console.log('res', res)
+          })
+          .catch(error => Promise.reject(error))
+      },
+      
+    }
+  })
+</script>
+
+</html>

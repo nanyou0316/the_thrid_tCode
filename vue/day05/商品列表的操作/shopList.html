@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  
+  <style>
+    .mask{
+      position: fixed;
+      left: 0;top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: rgba(0,0,0,.5);
+    }
+    .mask_content{
+      position: absolute;
+      left: 0;right: 0;top: 30px;bottom: 30px;
+      margin: auto;
+      width: 700px;
+      height: 480px;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+    }
+    .mask_content .row .form-group{
+      display: flex;
+      width: 100%;
+    }
+    .mask_content .row .form-group label{
+      display: block;;
+      width: 150px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      点击右侧按钮渲染表格 --> <button @click="getLists"> 渲染表格 </button>
+    </div>
+    <div class="row" v-if="lists.length > 0">
+      <table class="table table-striped ">
+        <thead class="thead-inverse">
+          <tr>
+            <th>商品图</th>
+            <th>商品_id</th>
+            <th>商品id</th>
+            <th>商品名称</th>
+            <th>商品标题</th>
+            <th>商品价格</th>
+            <th>商品描述</th>
+            <th>商品库存量</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+             <tr v-for = "item in lists">
+               <td>
+                 <img :src="item.shopPic" alt="">
+               </td>
+               <td>
+                 {{ item._id }}
+               </td>
+               <td> {{ item.shopId }} </td>
+               <td> {{ item.shopName }} </td>
+               <td> {{ item.shopTitle }} </td>
+               <td> {{ item.shopPrice }} </td>
+               <td> {{ item.shopDesc }} </td>
+               <td> {{ item.shopNum}} </td>
+               <td>
+                 <button type="button" class="btn btn-primary" @click="openFlag(item)" > 修改 </button>
+                 <button type="button" class="btn btn-danger" @click="del(item._id)"> 删除 </button>
+               </td>
+             </tr>
+          </tbody>
+      </table>
+    </div>
+    <div class="row" v-else>
+      <table class="table table-striped ">
+        <thead class="thead-inverse">
+          <tr>
+            <th>商品图</th>
+            <th>商品_id</th>
+            <th>商品id</th>
+            <th>商品名称</th>
+            <th>商品标题</th>
+            <th>商品价格</th>
+            <th>商品描述</th>
+            <th>商品库存量</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="9"> 暂无数据 </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+   
+    
+      <div class="mask" data-flag="mask" v-show="flag">
+        <div class="mask_content">
+          <div class="container">
+            <div class="row">
+              <div class="form-group">
+                <label for=""> 商品id </label>
+                <input type="text" v-model = "shopInfo.shopId" name="" id="id" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for=""> 商品名称 </label>
+                <input v-model = "shopInfo.shopName" type="text" name="" id="name" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for=""> 商品价格 </label>
+                <input  v-model = "shopInfo.shopPrice" type="text" name="" id="price" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for=""> 商品库存量 </label>
+                <input  v-model = "shopInfo.shopNum" type="text" name="" id="num" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for=""> 商品图片 </label>
+                <input @change="getPic" type="file" name="" id="pic" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for=""> 商品描述 </label>
+                <input  v-model = "shopInfo.shopDesc" type="text" name="" id="desc" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for=""> 商品标题 </label>
+                <input  v-model = "shopInfo.shopTitle" type="text" name="" id="title" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="row">
+              <button type="button" id="change_shop" class="btn btn-lg btn-primary" @click="updateShop"> 修改商品 </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+</body>
+<script src="./js/vue.js"></script>
+<script src="./js/ins.js"></script>
+<script>
+  new Vue({
+    el: '.container',
+    data: {
+      lists: [],
+      shopInfo: {},
+      flag: false,
+    },
+    methods: {
+      async getPic(e) {
+          const {
+            data: { image_path },
+          } = await request({
+            url: "https://elm.cangdu.org/v1/addimg/shop",
+            method: "POST",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            data: {
+              file: e.target.files[0],
+            },
+          });
+          this.shopInfo.shopPic = `https://elm.cangdu.org/img/${image_path}`;
+        },
+      openFlag (data) {
+        this.flag = true 
+        this.shopInfo = data
+      },
+      closeFlag () {
+        this.flag = false 
+      },
+      async getLists () {
+        const {data:{data}} = await request({
+          url: 'http://localhost:3000/api/shop',
+        })
+        this.lists = data 
+      },
+      async del (_id) {
+        const {data:{status,msg}} = await request({
+          url: 'http://localhost:3000/api/shop',
+          method: 'delete',
+          data: {
+            _id
+          }
+        })
+        if (status == 1) {
+          this.getLists()
+        } else {
+          alert(msg)
+        }
+      },
+      async updateShop () {
+        const {data:{status,msg,data}} = await request({
+          url: 'http://localhost:3000/api/shop',
+          method: 'put',
+          data: this.shopInfo
+        })
+        if (status == 1) {
+          this.lists = data 
+          this.closeFlag()
+        }
+      }
+    }
+  })
+</script>
+</html>

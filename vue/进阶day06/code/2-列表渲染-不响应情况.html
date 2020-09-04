@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    数据不响应情况 - length不响应  <br>
+    <button @click="removeList"> 删除以下列表 </button> <br>
+    数据不响应情况 - 下标不响应  <br>
+    <button @click="modifyFirstData"> 修改第一个数据 </button>
+    <ul>
+      <li v-for = "item in arr">
+        {{ item }}
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      arr: [1,2,3,4]
+    },
+    methods: {
+      removeList () {
+        // this.arr.length = 0
+      },
+      modifyFirstData () {
+        // this.arr[0] = 'abc'
+        //两种解决方式
+        // this.$set(this.arr,'0','abc')
+        Vue.set(this.arr,'0','abc')
+      }
+    }
+  })
+</script>
+</html>

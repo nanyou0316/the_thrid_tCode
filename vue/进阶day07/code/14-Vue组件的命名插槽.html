@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <Hello>
+      <footer slot="footer"> 底部 </footer>
+      <header slot="header"> 头部 </header>
+      <div slot="content"> 内容 </div>
+    </Hello>
+  </div>
+  <template id="hello">
+    <div>
+      slot上添加了name属性，我们称之为 命名插槽  <hr>
+      <slot name="header"></slot>
+      <slot name="content"></slot>
+      <slot name="footer"></slot>
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  Vue.component('Hello',{
+    template: '#hello'
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+</html>

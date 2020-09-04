@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <Hello/>
+  </div>
+  <template id="hello">
+    <div>Hello</div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  // 没有简写
+    // const Hello = Vue.extend({})
+    // Vue.component('Hello',Hello)
+  // 简写形式
+    // Vue.component(组件名，组件选项)
+    // Vue.component('Hello',{
+    //   template: '#hello'
+    // })
+  new Vue({
+    el: '#app',
+    components: {
+      'Hello': {
+        template: '#hello'
+      }
+    }
+  })
+</script>
+</html>

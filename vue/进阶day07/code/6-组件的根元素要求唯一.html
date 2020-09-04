@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <Hello/>
+  </div>
+  <template id="hello">
+    <!-- template下直接子元素只能一个 -->
+    <div v-if = "5>3">
+      <p>1</p>
+      <p>2 </p>
+      <p>3</p>
+    </div>
+    <div v-else>
+      <p>1</p>
+      <p>2 </p>
+      <p>3</p>
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  Vue.component('Hello',{
+    template: '#hello'
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+</html>

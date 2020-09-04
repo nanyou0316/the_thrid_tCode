@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <Hello/>
+  </div>
+  <template id="hello">
+    <div>
+      <p> 数组自己的数据在自己范围内使用 {{ money }} </p>
+      <button @click="fn"> 点击 </button>
+      <p> 计算属性 {{ doubleMoney }} </p>
+    </div>
+  </template>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  Vue.component('Hello',{
+    template: '#hello',
+    data () {
+      return {
+        money: 15000
+      }
+    },
+    methods: {
+      fn () {
+        // alert('组件的事件')
+        this.money = 20000
+      }
+    },
+    computed: {
+      doubleMoney () {
+        return this.money *2
+      }
+    },
+    watch: {
+      money () {
+        alert('money改变了')
+      }
+    }
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  
+</head>
+<body>
+  <div id="app">
+    要求一次发送多个请求
+    <button @click="all"> 发送请求 </button>
+  </div>
+</body>
+<script src="../../dep/vue.js"></script>
+<script>
+  const ins = axios.create({
+    baseURL: 'http://59.110.226.77:3000',
+    timeout: 4000
+  })
+  new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+      get () {
+        // 返回值是Promise
+        return ins.get('/api/list/hot',{params: {cid: 17}})
+      },
+      post () {
+        return ins.post('/api/user/login',{
+          username: 'yanyabing',
+          password: '123'
+        })
+      },
+      all () {
+        //并行发送多个数据请求 
+        // 
+        axios.all([this.get(),this.post()])
+          .then(axios.spread((res1,res2) => {
+            console.log('res1',res1)
+            console.log('res2',res2)
+          }))
+      }
+    }
+  })
+</script>
+</html>

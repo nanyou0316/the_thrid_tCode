@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+<script>
+  // web网站/webapp 要使用js来操作大量真实dom节点
+  /* 
+    * 操作数据比操作真实dom节点要节省性能
+  */
+  const box = document.querySelector('.box')
+  console.time('a')
+  for(var i = 0;i< 1000001;i++) {
+    // 操作了大概10000次的真实dom
+    box.innerHTML = i 
+  }
+  console.timeEnd('a')
+
+  console.time('b')
+  var count = 0
+  for (var i=0; i< 1000001;i++) {
+    count = i 
+  }
+  box.innerHTML = count 
+  console.timeEnd('b')
+</script>
+</html>
